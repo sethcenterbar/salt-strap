@@ -7,6 +7,7 @@ _My goal here is to show a working comprehension of the following:_
 * Bash control flow (understanding the _test_ command (if))
 * Bash functions
 * Option/Argument Passing with getopts
+* help menu for options and examples
 * sed
 * systemd
 * ANSI escape sequences (coloring the hard way)
