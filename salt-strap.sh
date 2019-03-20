@@ -52,6 +52,20 @@ install-salt-minion () {
     yum install salt-minion -y
 }
 
+configure_minion () {
+    echo -e "${GREEN}Adding salt master ip to /etc/hosts${RESET}"
+    echo "${MASTER}    salt" | sudo tee --append /etc/hosts > /dev/null
+}
+
+add_key_finger () {
+    echo -e "${GREEN}Adding the master fingerprint to /etc/salt/master${RESET}"
+    sed -i "s/#master_finger: ''/master_finger: '${FINGER}'/g" /etc/salt/master
+}
+
+start_minion () {
+    systemctl enable salt-minion --now
+}
+
 # Recieve command line arguments using getopts
 while getopts "hf:m:i" opt; do
     case ${opt} in
@@ -63,7 +77,7 @@ while getopts "hf:m:i" opt; do
             ;;
         i ) INSTALL=true
             ;;
-        \? ) echo "Usage: cmd [-h] [-i] -m -f "
+        \? ) display_help_text
             ;;
     esac
 done
@@ -73,6 +87,13 @@ main () {
     if [ "$INSTALL" = true ]; then
         install-salt-minion
     fi
+    if [ ! "${MASTER}" = "" ]; then
+        configure_minion   
+    fi
+    if [ ! "${FINGER}" = "" ]; then
+        add_key_finger   
+    fi
+    start_minion
 }
 
 main
