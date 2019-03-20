@@ -26,6 +26,13 @@ display_help_text () {
 	exit
 }
 
+default_to_helptext () {
+	# If no arguments are passed to the script, it should default to showing the help text
+	if [ $# -eq 0 ]; then
+		display_help_text
+	fi
+}
+
 # Recieve command line arguments using getopts
 while getopts "hf:m:i" opt; do
   case ${opt} in
@@ -42,14 +49,8 @@ while getopts "hf:m:i" opt; do
   esac
 done
 
-test_params () {
-	echo "finger = ${FINGER}"
-	echo "master = ${MASTER}"
-	echo "install = ${INSTALL}"
-}
-
 main () {
-	test_params
+	default_to_helptext
 }
 
 main
