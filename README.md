@@ -3,7 +3,8 @@ A salt-minion bootstrapper with colored output, a useful help menu, and option &
 
 I created this because I don't have any other public examples of bash scripts I've worked on other than my zsh configs. 
 
-_My goal here is to show a working comprehension of the following:_
+# Goals
+With this project, I wanted to show a working understanding of the following:
 * Bash control flow (understanding the _test_ command (if))
 * Bash functions
 * Option/Argument Passing with getopts
